@@ -3,15 +3,20 @@ An ESP8266 / SSD1322 based IOT OLED Display
 
 It shows inside and outside temperature, current time and whatever status text you like.
 
+![display](/pics/display.jpg)
+
 # Hardware & Wiring
 Hardware needed:
-NodeMCU
-OLED Display 3.12" 256*64 SSD1322
 
+* NodeMCU
+* OLED Display 3.12" 256*64 SSD1322
+
+## Display soldering
 The display must be soldered for "4 SPI"
 
+![solder](/pics/solder.jpg)
 
-Wiring
+## Wiring
 ```
 NodeMCU           - Display
 ----------------------------------------
@@ -23,7 +28,6 @@ D5 HSCLK (GPIO14) - PIN 4  / SCLK (D0)
 3.3V              - PIN 2
 GND               - PIN 1
 ```
-
 
 # Building
 I use VSC/Platform IO
