@@ -34,6 +34,8 @@ I use VSC/Platform IO
 
 Make sure `#define U8G2_16BIT` is uncommented in `/lib/U8g2/src/clib/u8g2.h`
 
+Add your WiFi SSID, password, MQTT server and topic in `src/Secrets.h`
+
 # Controlling via MQTT
 
 Send a JSON structure to the topic defined in `Secrets.h`
