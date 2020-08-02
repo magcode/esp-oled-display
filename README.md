@@ -1,5 +1,5 @@
 # esp-oled-display
-An ESP8266 / SSD1322 based IOT OLED Display
+An ESP8266 / SSD1322 based IOT OLED Display controlled by MQTT.
 
 It shows inside and outside temperature, current time and whatever status text you like.
 
