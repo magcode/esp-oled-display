@@ -7,8 +7,6 @@
 #include <PubSubClient.h>
 #include <Secrets.h>
 
-#define mqttTopicText "home/display1/text/set"
-
 U8G2_SSD1322_NHD_256X64_1_4W_HW_SPI u8g2(U8G2_R0, /* cs=*/15, /* dc=*/4, /* reset=*/5);
 const int CHIP_ID = ESP.getChipId();
 WiFiClient wifiClient;
@@ -122,7 +120,6 @@ void startMqtt()
     else
     {
       Serial.println("MQTT failed, retrying..." + mqttClient.state());
-      // Wait before retrying
       delay(2500);
     }
   }
