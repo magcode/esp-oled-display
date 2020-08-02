@@ -12,7 +12,7 @@ Hardware needed:
 * OLED Display 3.12" 256*64 SSD1322
 
 ## Display soldering
-The display must be soldered for "4 SPI"
+The display must be soldered for "4SPI"
 
 ![solder](/pics/solder.jpg)
 
@@ -50,6 +50,6 @@ Send a JSON structure to the topic defined in `Secrets.h`
 You can disable the display by sending
 ```
 {
-  disable:true, 
+  disable:true
 }
 ```
