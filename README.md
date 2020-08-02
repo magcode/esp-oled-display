@@ -1,5 +1,6 @@
 # esp-oled-display
 An ESP8266 / SSD1322 based IOT OLED Display
+
 It shows inside and outside temperature, current time and whatever status text you like.
 
 # Hardware & Wiring
@@ -26,7 +27,9 @@ GND               - PIN 1
 
 # Building
 I use VSC/Platform IO
+
 Make sure `#define U8G2_16BIT` is uncommented in `/lib/U8g2/src/clib/u8g2.h`
+
 # Controlling via MQTT
 
 Send a JSON structure to the topic defined in `Secrets.h`
@@ -40,7 +43,7 @@ Send a JSON structure to the topic defined in `Secrets.h`
 }
 ```
 
-You can display the display by sending
+You can disable the display by sending
 ```
 {
   disable:true, 
