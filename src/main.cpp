@@ -41,11 +41,6 @@ void drawModeNormal(int tempInside, int tempOutside, const char *time, const cha
   } while (u8g2.nextPage());
 }
 
-void loop(void)
-{
-  mqttClient.loop();
-}
-
 void logT(const char *s)
 {
   Serial.println(s);
@@ -89,6 +84,29 @@ void callback(char *topic, byte *payload, unsigned int length)
   }
 }
 
+void startMqtt()
+{
+  while (!mqttClient.connected())
+  {
+    String clientId = "iotdisplay-";
+    clientId += String(random(0xffff), HEX);
+    logT("MQTT connecting ...");
+    delay(1000);
+    if (mqttClient.connect(clientId.c_str()))
+    {
+      logT("MQTT connected");
+      delay(1000);
+      mqttClient.subscribe(mqttTopicText);
+      logT("MQTT subscribed");
+    }
+    else
+    {
+      logT("MQTT failed, retrying...");
+      delay(5000);
+    }
+  }
+}
+
 void startWifi(void)
 {
   WiFi.begin(wifiAP, wifiPassword);
@@ -101,40 +119,26 @@ void startWifi(void)
   logT("Wifi connected");
 }
 
-void startMqtt()
-{
-  mqttClient.setServer(mqtt_server, mqtt_port);
-  mqttClient.setCallback(callback);
-  while (!mqttClient.connected())
-  {
-    String clientId = "iotdisplay-";
-    clientId += String(random(0xffff), HEX);
-    Serial.printf("MQTT connecting as client %s...\n", clientId.c_str());
-    if (mqttClient.connect(clientId.c_str()))
-    {
-      logT("MQTT connected");
-      delay(1000);
-      mqttClient.subscribe(mqttTopicText);
-      logT("MQTT subscribed");
-    }
-    else
-    {
-      Serial.println("MQTT failed, retrying..." + mqttClient.state());
-      delay(2500);
-    }
-  }
-}
-
 void setup(void)
 {
   Serial.begin(115200);
   Serial.println(CHIP_ID + " starting");
+
+  mqttClient.setServer(mqtt_server, mqtt_port);
+  mqttClient.setCallback(callback);
 
   u8g2.begin();
   u8g2.enableUTF8Print();
 
   startWifi();
   delay(1000);
-  startMqtt();
-  delay(1000);
+}
+
+void loop(void)
+{
+  if (!mqttClient.connected())
+  {
+    startMqtt();
+  }
+  mqttClient.loop();
 }
